@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import { defaultRanges, Calendar, DateRange } from '../../../lib';
-import Section from 'components/Section';
+// import Calendar from '../../../lib/Calendar';
+// import defaultRanges from '../../../lib/defaultRanges';
+import { Calendar, defaultRanges, DateRange } from '../../../lib'
 
+import Section from './Section';
 import 'normalize.css';
-import 'styles/global'
-import styles from 'styles/main';
+import '../styles/global.css'
+import styles from '../styles/main.css';
 import '../../../src/styles.scss'
 
 export default class Main extends Component {
@@ -50,14 +52,6 @@ export default class Main extends Component {
             />
           </div>
 
-          <DateRange
-            startDate='10/11/2015'
-            endDate={ now => {
-              return '11/12/2015';
-            }}
-            onInit={ this.handleChange.bind(this, 'rangePicker') }
-            onChange={ this.handleChange.bind(this, 'rangePicker') }
-          />
         </Section>
 
         <Section title='Range Picker (Linked Calendars)'>

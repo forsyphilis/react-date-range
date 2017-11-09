@@ -5,9 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "start-dev": "babel ./src --watch --out-dir ./lib & cd demo && npm install && npm run start-dev",
-    "prebuild": "rm -rf lib/*",
-    "build": "babel ./src --out-dir ./lib",
-    "prepublish": "npm run build"
+    "build": "babel src --out-dir lib"
   },
   "keywords": [
     "react",
@@ -26,14 +24,21 @@
     "url": "http://github.com/Adphorus/react-date-range/issues"
   },
   "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-es2015-modules-umd": "^6.24.1",
+    "babel-plugin-transform-es2015-spread": "^6.22.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
     "classnames": "^2.2.5",
     "moment": "^2.19.1",
     "prop-types": "^15.6.0"
   },
-  "peerDependencies": {
-    "react": "^0.14 || ^15.0.0-rc || ^15.0"
-  },
   "devDependencies": {
-    "babel": "^5.8.23"
+    "babel": "^5.8.23",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
   }
 }

@@ -1,67 +1,45 @@
-var webpack             = require('webpack');
-var HtmlWebpackPlugin   = require('html-webpack-plugin');
-var UglifyJsPlugin      = webpack.optimize.UglifyJsPlugin;
-var path                = require('path');
-var DefinePlugin        = webpack.DefinePlugin;
-var WebpackDevServer    = require("webpack-dev-server");
-var NODE_ENV            = process.env.NODE_ENV.trim() || 'production';
+const webpack             = require('webpack');
+const HtmlWebpackPlugin   = require('html-webpack-plugin');
+const UglifyJsPlugin      = webpack.optimize.UglifyJsPlugin;
+const path                = require('path');
+const DefinePlugin        = webpack.DefinePlugin;
+const WebpackDevServer    = require("webpack-dev-server");
+const NODE_ENV            = process.env.NODE_ENV || 'production';
 
-var config = {
-  entry                 : {
-    main                : [path.join(__dirname, '/src/main.js')]
+const config = {
+  entry: {
+    main: [path.join(__dirname, '/src/main.js')]
   },
-
-  output                : {
-    path                : path.join(__dirname, '/dist'),
-    filename            : '[name].js'
+  output: {
+    path: path.join(__dirname, '/dist'),
+    filename: '[name].js'
   },
-
-  devtool               : ((NODE_ENV==='development') ? 'source-map' : false),
-
-  plugins               : [
+  plugins: [
     new HtmlWebpackPlugin({
-      title             : '',
-      template          : path.join(__dirname, '/src/index.html'),
-      inject            : true,
-      filename          : 'index.html'
-    }),
-
-    new webpack.DefinePlugin({
-      'process.env'     : {
-        NODE_ENV        : JSON.stringify(NODE_ENV)
-      }
-    }),
-  ],
-
-  resolve               : {
-    extensions          : ['', '.js', '.css', '.scss'],
-    alias               : {
-      'root'            : path.join(__dirname, '/src'),
-      'components'      : path.join(__dirname, '/src/components'),
-      'styles'          : path.join(__dirname, '/src/styles')
-    }
-  },
-
-  module                : {
-    loaders             : [
-      { test            : /\.js$/,
-        loaders         : ['babel-loader'],
-        include         : path.join(__dirname, '/src')
-      }, {
-        test            : /\.s?css$/,
-        loader        : 'style!css!sass'
-      }
-    ]
+            title             : '',
+            template          : path.join(__dirname, '/src/index.html'),
+            inject            : true,
+            filename          : 'index.html'
+        }),
+        ],
+  module: {
+    rules: [
+          { test: /\.js$/,
+              use: {
+                  loader: 'babel-loader',
+              },
+              include: [path.join(__dirname, '../../../src'), path.join(__dirname, '/src')],
+              exclude: /node_modules/
+          },
+          { test: /\.s?css$/,
+              use: [
+                  {loader: 'style-loader'},
+                  {loader: 'css-loader'},
+              ]
+          }
+      ]
   }
-}
-
-if (NODE_ENV === 'production') {
-  config.plugins.push(new UglifyJsPlugin({
-    compress  : { warnings : false },
-    sourcemap : false,
-    mangle    : true
-  }));
-}
+};
 
 const compiler = webpack(config);
 

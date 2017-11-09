@@ -4,7 +4,7 @@ const UglifyJsPlugin      = webpack.optimize.UglifyJsPlugin;
 const path                = require('path');
 const DefinePlugin        = webpack.DefinePlugin;
 const WebpackDevServer    = require("webpack-dev-server");
-const NODE_ENV            = process.env.NODE_ENV || 'production';
+const NODE_ENV            = process.env.NODE_ENV.trim() || 'production';
 
 const config = {
   entry: {
